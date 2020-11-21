@@ -9,14 +9,14 @@ server.use(express.json());
 
 
 
-
+//GET - initial server request
 server.get('/api', (req, res)=>{
 
     res.status(200).json({message: 'Welcome! request an endpoint to get started!'});
 
 })
 
-//POST - creates new user
+//POST - creates new user and adds to the list
 server.post('/api/users', (req, res) =>{
     if (req.body.bio && req.body.name !== null ){
         const newUser = {
@@ -35,11 +35,11 @@ server.post('/api/users', (req, res) =>{
 
 })
 
-//GET 
+//GET - gets full list of users
 server.get('/api/users', (req, res) => {
 
 
-    res.json(data)
+    res.status(200).json(data)
 })
 
 //GET - gets user by id
@@ -63,7 +63,7 @@ server.get('/api/users/:id', async (req, res)=>{
 
 })
 
-//DELETE
+//DELETE - deletes user if id is found
 server.delete('/api/users/:id', async (req, res)=>{
     try{
         const userIndex = await data.findIndex( function(user){
@@ -83,7 +83,7 @@ server.delete('/api/users/:id', async (req, res)=>{
 
 })
 
-//PUT
+//PUT - updates bio and name for user
 server.put('/api/users/:id', async (req, res)=>{
     try{
         const userIndex = await data.findIndex( function(user){
